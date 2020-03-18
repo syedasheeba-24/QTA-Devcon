@@ -1,0 +1,11 @@
+.sidenav a {
+  color: black;
+}
+.sidenav a:hover {
+  color: lightskyblue;
+}
+
+.sidenav a[tabindex]:focus {
+  color: #1890d8;
+  outline: none;
+}

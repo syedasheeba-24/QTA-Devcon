@@ -1,0 +1,54 @@
+.form-22 input[type="text"],
+.form-22 select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.form-22 input[type="submit"] {
+  width: 100%;
+  background-color: darkslateblue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  margin-top: 25px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-22 input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.form-22 {
+  color: white;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 15px;
+  border-radius: 5px;
+  background-color: lightseagreen;
+  padding: 20px;
+}
+
+.inner-form {
+  width: 100%;
+  border-radius: 5px;
+  color: black;
+  background-color: lightblue;
+  padding: 10px;
+}
+
+.inner-form input[type="submit"] {
+  width: 100%;
+  background-color: steelblue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

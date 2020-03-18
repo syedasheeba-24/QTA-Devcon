@@ -1,0 +1,14 @@
+.inner {
+  overflow: hidden;
+}
+
+.inner {
+  transition: all 0.2s ease;
+}
+.inner:hover {
+  transform: scale(1.1);
+}
+a.custom-card,
+a.custom-card:hover {
+  color: inherit;
+}

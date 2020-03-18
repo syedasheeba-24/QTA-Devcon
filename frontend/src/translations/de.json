@@ -1,0 +1,13 @@
+{
+  "login": "Einloggen",
+  "username": "Nutzername",
+  "password": "Passwort",
+  "logout": "Ausloggen",
+  "create-nomination-form": "Nominierungsformular",
+  "view-nomination-form": "NominierungsNominierungen",
+  "view-nominations": "Nominierungen",
+  "fill-nomination-form": "Nominierungsformular ausfüllen",
+  "description-create": "Ermöglicht das Erstellen von kategorisierten Formularen.",
+  "view-form": "Zeigt alle gespeicherten Formulare an, Kategorien kategorisiert sind.",
+  "description-nomination": "Zeigt die eingereichten verschiedenen Nominierungen unter  die in  verschiedenen Kategorien an."
+}

@@ -1,0 +1,53 @@
+.modal-wrapper-1 {
+  background: white;
+  border: 1px solid #d0cccc;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  margin: 50px auto 0;
+  transition: all 0.8s;
+  width: 50%;
+}
+
+.modal-header-1 {
+  background-image: linear-gradient(to right, #1890d8, white);
+  height: 40px;
+  line-height: 40px;
+  padding: 5px 20px;
+  text-align: right;
+}
+
+.modal-header-1 h3 {
+  color: white;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-body-2 {
+  background-image: linear-gradient(to right, #f4f5f7, white);
+  text-align: center;
+  position: relative;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 20px;
+}
+
+.modal-footer-1 {
+  background: white;
+  height: 35px;
+  padding: 2px;
+}
+
+.back-drop-1 {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE63ROROiAsNSrQsK0bJH1-SNEdL5oD2Fll54d0FPShOOovmLi&s);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  position: fixed;
+  z-index: 3;
+  transition: all 1.3s;
+  width: 100%;
+}
+
+.hidden-div {
+  display: none;
+}
