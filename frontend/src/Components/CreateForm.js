@@ -69,13 +69,23 @@ class CreateForm extends Component {
 
   onSubmit = event => {
     const { fields, formName, category } = this.state;
-    event.preventDefault();
+    const regex = event.preventDefault();
     if (
       this.state.formName === "" ||
       this.state.category === "" ||
       this.state.fields.length === 0
     )
       alert("Please ensure the mandatory fields are filled");
+    else if (
+      this.state.formName.includes("/") ||
+      this.state.formName.includes("@") ||
+      this.state.formName.includes("#") ||
+      this.state.formName.includes("$") ||
+      this.state.formName.includes("%") ||
+      this.state.formName.includes("^") ||
+      this.state.formName.includes("/")
+    )
+      alert("Please avoid using special characters");
     else {
       axios
         .post("/create-forms", { fields, formName, category })
