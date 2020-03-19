@@ -5,6 +5,7 @@ public class Score {
 	String score;
 	String teamName;
 	String comment;
+	String category;
 
 	public String getComment() {
 		return comment;
@@ -29,4 +30,14 @@ public class Score {
 	public void setScore(String score) {
 		this.score = score;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
 }

@@ -35,15 +35,10 @@ public class EvaluationDaoImpl implements EvaluationDao {
 
 	@Override
 	public List<Evaluation> getEvaluations(String category) {
-		List<Nomination> listNominations; 
 		Query query = new Query();
-		query.addCriteria(Criteria.where("projectType").is(category));
-		listNominations=mongoTemplate.find(query, Nomination.class);
-		Query query2=new Query();
+		query.addCriteria(Criteria.where("listOfScore.category").is(category));
 		List<Evaluation> listEvaluations= new ArrayList<Evaluation>();
-		if(!listNominations.isEmpty())
-		query2.addCriteria(Criteria.where("listOfScore.teamName").is(listNominations.get(0).getTeamName()));
-		listEvaluations= mongoTemplate.find(query2,Evaluation.class);
+		listEvaluations= mongoTemplate.find(query,Evaluation.class);
 		return listEvaluations;
 	}
 }
