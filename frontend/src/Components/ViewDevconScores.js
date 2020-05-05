@@ -6,26 +6,18 @@ import { Redirect } from "react-router-dom";
 class Score extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
+
     this.state = {
-      loggenIn,
-      devconScores: []
+      devconScores: [],
     };
   }
   componentWillMount() {
-    axios.get("/getDevconScores").then(res => {
+    axios.get("/getDevconScores").then((res) => {
       this.setState({ devconScores: res.data });
     });
   }
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <div>
         <div
@@ -33,7 +25,7 @@ class Score extends Component {
           style={{
             padding: "0px 10px",
             paddingTop: "130px",
-            overflow: "auto"
+            overflow: "auto",
           }}
         >
           <div>
@@ -51,40 +43,40 @@ class Score extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.devconScores.map(c => (
+                {this.state.devconScores.map((c) => (
                   <tr>
                     <td>{c.paperName}</td>
                     <td>{c.evaluatorName}</td>
                     <td>
-                      {c.criteria.map(cc => (
+                      {c.criteria.map((cc) => (
                         <tr>
                           <td>{cc}</td>
                         </tr>
                       ))}
                     </td>
                     <td>
-                      {c.weightage.map(cc => (
+                      {c.weightage.map((cc) => (
                         <tr>
                           <td>{cc}%</td>
                         </tr>
                       ))}
                     </td>
                     <td>
-                      {c.score.map(cc => (
+                      {c.score.map((cc) => (
                         <tr>
                           <td>{cc}</td>
                         </tr>
                       ))}
                     </td>
                     <td>
-                      {c.comments.map(cc => (
+                      {c.comments.map((cc) => (
                         <tr>
                           <td>{cc}</td>
                         </tr>
                       ))}
                     </td>
                     <td>
-                      {c.totalWeightage.map(cc => (
+                      {c.totalWeightage.map((cc) => (
                         <tr>
                           <td>{cc}</td>
                         </tr>

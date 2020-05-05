@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import Home from "./Home";
 import Evaluator from "./Evaluator";
 import Evaluator2 from "./Evaluator2";
+import Login from "./Login";
 import Main from "./Main";
 import FillForm from "./FillForm";
 import "./Login.css";
@@ -84,26 +85,19 @@ class LoginBox extends Component {
           <Redirect to="/options" />
         </BrowserRouter>
       );
-    } /* else if (this.state.evaluatorLoggedIn === true) {
-       return (
-         <Redirect
-           to={{
-             pathname: `/show/${this.state.username}`
-           }}
-         />
-       );
-     } */ else if (
+    } else if (
       this.state.responseCode === 1 &&
       this.state.evaluatorLoggedIn === true
     )
       return (
         <BrowserRouter>
-          <Route path="/showdevcon/:username" component={Evaluator} />
-          <Redirect
+          <Route path="/showdevcon" component={Evaluator} />
+          <Evaluator username={this.state.username} />
+          {/*<Redirect
             to={{
               pathname: `/showdevcon/${this.state.username}`
             }}
-          />
+          />*/}
         </BrowserRouter>
       );
     else if (
@@ -113,6 +107,7 @@ class LoginBox extends Component {
       return (
         <BrowserRouter>
           <Route path="/showquarter/:username" component={Evaluator2} />
+
           <Redirect
             to={{
               pathname: `/showquarter/${this.state.username}`
@@ -141,6 +136,7 @@ class LoginBox extends Component {
       if (this.state.userLoggedIn === true) {
         return (
           <BrowserRouter>
+            <Route exact path="/" component={Login} />
             <Route path="/fillform" component={FillForm} />
             <Redirect to="/fillform" />
           </BrowserRouter>

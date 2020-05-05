@@ -12,35 +12,25 @@ import "./index.css";
 class Options extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
-    this.state = {
-      loggenIn
-    };
+
+    this.state = {};
   }
-  route = event => {
+  route = (event) => {
     event.preventDefault();
     let path = event.target.value;
     this.props.history.push(path);
   };
-  logoutRoute = event => {
+  logoutRoute = (event) => {
     event.preventDefault();
-    localStorage.removeItem("token");
     this.props.history.push("/");
   };
   componentDidMount() {
     window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener("popstate", function(event) {
+    window.addEventListener("popstate", function (event) {
       window.history.pushState(null, document.title, window.location.href);
     });
   }
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <BrowserRouter>
         <div>
@@ -50,7 +40,7 @@ class Options extends Component {
               position: "fixed",
               width: "100%",
               zIndex: "2",
-              paddingTop: "60px"
+              paddingTop: "60px",
             }}
           >
             <li>

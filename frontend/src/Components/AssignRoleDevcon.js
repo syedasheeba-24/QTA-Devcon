@@ -8,38 +8,32 @@ import "react-toastify/dist/ReactToastify.css";
 class Assign extends Component {
   constructor() {
     super();
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
 
     this.state = {
-      loggenIn,
       role: "admin",
       username: "",
-      associateName: ""
+      associateName: "",
     };
   }
 
-  usernameChange = event => {
+  usernameChange = (event) => {
     this.setState({ username: event.target.value });
   };
 
-  associateNameChange = event => {
+  associateNameChange = (event) => {
     this.setState({ associateName: event.target.value });
   };
 
-  handleDropdownChange = event => {
+  handleDropdownChange = (event) => {
     this.setState({ role: event.target.value });
   };
 
   notify = () =>
     toast.success("Assigned Succesfully!!", {
-      position: toast.POSITION.TOP_CENTER
+      position: toast.POSITION.TOP_CENTER,
     });
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     const username = this.state.username;
     const role = this.state.role;
     const event = "devcon";
@@ -62,9 +56,6 @@ class Assign extends Component {
   };
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <div>
         <ToastContainer autoClose={3000} />
@@ -106,7 +97,7 @@ class Assign extends Component {
                   margin: "8px",
                   border: "1px solid #ccc",
                   borderRadius: "4px",
-                  boxSizing: "border-box"
+                  boxSizing: "border-box",
                 }}
                 onChange={this.handleDropdownChange}
               >

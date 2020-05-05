@@ -15,15 +15,15 @@ class CreateForm extends Component {
       id: "",
       arrOfId: [],
       arrOfForms: [],
-      categories: []
+      categories: [],
     };
   }
   notify = () =>
     toast.success("Form created succesfully!!", {
-      position: toast.POSITION.TOP_CENTER
+      position: toast.POSITION.TOP_CENTER,
     });
 
-  onChange = event => {
+  onChange = (event) => {
     const state = this.state;
     state[event.target.name] = event.target.value;
     this.setState(state);
@@ -35,8 +35,8 @@ class CreateForm extends Component {
     this.setState({ fields: tempArray });
   };
   componentWillMount() {
-    axios.get("/get-id").then(res => {
-      axios.get("/get-activated-ids").then(result => {
+    axios.get("/get-id").then((res) => {
+      axios.get("/get-activated-ids").then((result) => {
         this.setState({ arrOfId: result.data });
       });
       this.setState({ id: res.data });
@@ -46,28 +46,28 @@ class CreateForm extends Component {
   componentDidMount() {
     var _arrOfCategories = [];
     var _arrOfForms = [];
-    axios.get("/get-categories").then(res => {
+    axios.get("/get-categories").then((res) => {
       _arrOfCategories = res.data;
 
-      _arrOfCategories.map(c =>
-        axios.get("/get-forms/" + c).then(res => {
+      _arrOfCategories.map((c) =>
+        axios.get("/get-forms/" + c).then((res) => {
           _arrOfForms.push(res.data);
           this.setState({
             arrOfForms: _arrOfForms,
-            categories: _arrOfCategories
+            categories: _arrOfCategories,
           });
         })
       );
     });
   }
 
-  onFormInputChange = e => {
+  onFormInputChange = (e) => {
     const state = this.state;
     state[e.target.name] = e.target.value;
     this.setState(state);
   };
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     const { fields, formName, category } = this.state;
     const regex = event.preventDefault();
     if (
@@ -98,7 +98,7 @@ class CreateForm extends Component {
     }
   };
 
-  removeField = fieldKey => {
+  removeField = (fieldKey) => {
     var array = [...this.state.fields];
     var index = fieldKey;
     if (index !== -1) {
@@ -117,7 +117,7 @@ class CreateForm extends Component {
             float: "left",
             marginRight: "2%",
             width: "45%",
-            paddingTop: "130px"
+            paddingTop: "130px",
           }}
         >
           <AddFieldForm
@@ -143,7 +143,7 @@ class CreateForm extends Component {
             </thead>
             <tbody>
               {Object.keys(this.state.fields).map(
-                function(key) {
+                function (key) {
                   return (
                     <tr style={{ textAlign: "center" }}>
                       <td>{this.state.fields[key].field}</td>
@@ -179,10 +179,10 @@ class AddFieldForm extends Component {
       valueOfFieldType: "text",
       isMandatory: "no",
       fieldName: "",
-      fieldLength: ""
+      fieldLength: "",
     };
   }
-  createField = e => {
+  createField = (e) => {
     e.preventDefault();
     var field = this.state.fieldName;
     var fieldType = this.state.valueOfFieldType;
@@ -200,18 +200,18 @@ class AddFieldForm extends Component {
     }
   };
 
-  handleFieldTypeChange = event => {
+  handleFieldTypeChange = (event) => {
     this.setState({ valueOfFieldType: event.target.value });
   };
-  handleMandatoryFieldChange = event => {
+  handleMandatoryFieldChange = (event) => {
     this.setState({ isMandatory: event.target.value });
   };
 
-  onFieldNameChange = event => {
+  onFieldNameChange = (event) => {
     this.setState({ fieldName: event.target.value });
   };
 
-  onFieldLengthChange = event => {
+  onFieldLengthChange = (event) => {
     this.setState({ fieldLength: event.target.value });
   };
   render() {
@@ -221,7 +221,7 @@ class AddFieldForm extends Component {
           <div>
             <label
               style={{
-                width: "100%"
+                width: "100%",
               }}
             >
               <button
@@ -257,7 +257,7 @@ class AddFieldForm extends Component {
               fontWeight: "bold",
               marginTop: "7px",
               fontSize: "23px",
-              width: "100%"
+              width: "100%",
             }}
           >
             * Field Specifications:

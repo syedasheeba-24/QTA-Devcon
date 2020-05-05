@@ -13,14 +13,8 @@ class Assign extends Component {
   _stateArr = [];
   constructor() {
     super();
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
 
     this.state = {
-      loggenIn,
       arrOfPapers: [
         "A",
         "B",
@@ -35,7 +29,7 @@ class Assign extends Component {
         "L",
         "M",
         "N",
-        "O"
+        "O",
       ],
       evaluatorNames: [],
       evaluatorIds: [],
@@ -43,28 +37,28 @@ class Assign extends Component {
       evaluatorID: "",
       papersAssigned: [],
       st: [],
-      tempArr: []
+      tempArr: [],
     };
   }
   componentWillMount() {
-    axios.get("/getDevconEvaluators").then(result => {
+    axios.get("/getDevconEvaluators").then((result) => {
       this.setState({
-        evaluatorNames: result.data
+        evaluatorNames: result.data,
       });
       this.setState({
-        evaluatorName: this.state.evaluatorNames[0]
+        evaluatorName: this.state.evaluatorNames[0],
       });
-      axios.get("/getDevconEvaluatorId").then(result2 => {
+      axios.get("/getDevconEvaluatorId").then((result2) => {
         this.setState({
-          evaluatorIds: result2.data
+          evaluatorIds: result2.data,
         });
         this.setState({
-          evaluatorID: this.state.evaluatorIds[0]
+          evaluatorID: this.state.evaluatorIds[0],
         });
       });
     });
   }
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ evaluatorName: event.target.value });
     let Id = this.state.evaluatorNames.indexOf(event.target.value);
     this.setState({ evaluatorID: this.state.evaluatorIds[Id] });
@@ -92,9 +86,9 @@ class Assign extends Component {
   };
   notify = () =>
     toast.success("Assigned Succesfully!!", {
-      position: toast.POSITION.TOP_CENTER
+      position: toast.POSITION.TOP_CENTER,
     });
-  onSubmit = event => {
+  onSubmit = (event) => {
     let evaluatorName = this.state.evaluatorName;
     let evaluatorID = this.state.evaluatorID;
     let papersAssigned = this.state.papersAssigned;
@@ -107,7 +101,7 @@ class Assign extends Component {
       this.setState({ papersAssigned: this._tempArr });
       axios
         .post("/assignPaper", { evaluatorName, evaluatorID, papersAssigned })
-        .then(result => {
+        .then((result) => {
           this.notify();
           this._tempArr = [];
           this._stateArr = [false];
@@ -118,9 +112,6 @@ class Assign extends Component {
   };
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <div>
         <ToastContainer autoClose={3000} />
@@ -132,14 +123,14 @@ class Assign extends Component {
             float: "left",
             marginLeft: "10px",
             marginTop: "10px",
-            position: "fixed"
+            position: "fixed",
           }}
         >
           <div class="form-group">
             <label
               style={{
                 fontSize: "20px",
-                fontStyle: "bold"
+                fontStyle: "bold",
               }}
             >
               Select the evaluator *
@@ -152,7 +143,7 @@ class Assign extends Component {
                   display: "inline-block",
                   border: "1px solid #ccc",
                   borderRadius: "4px",
-                  boxSizing: "border-box"
+                  boxSizing: "border-box",
                 }}
                 onChange={this.handleChange}
               >
@@ -177,7 +168,7 @@ class Assign extends Component {
               backgroundImage: "linear-gradient(to right, #1890d8,white)",
               width: "100%",
               zIndex: "2",
-              color: "white"
+              color: "white",
             }}
           >
             Select the papers to be assigned..
@@ -186,7 +177,7 @@ class Assign extends Component {
           <div
             style={{
               paddingTop: "50px",
-              paddingLeft: "20px"
+              paddingLeft: "20px",
             }}
             class="row"
           >
@@ -199,7 +190,7 @@ class Assign extends Component {
                   type="checkbox"
                   class="custom-control-input"
                   id={c}
-                  onChange={event => this.change(event, c, index)}
+                  onChange={(event) => this.change(event, c, index)}
                   checked={this.state.st[index]}
                 />
                 <label class="custom-control-label" for={c}>

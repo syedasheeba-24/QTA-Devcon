@@ -10,15 +10,10 @@ class FillForm extends Component {
   name = "";
   constructor() {
     super();
-    const token = localStorage.getItem("user");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
 
     this.state = {
       form: {},
-      loggenIn,
+
       idOfActivatedForm: "",
       parentFormName: "",
       listOfNominations: [],
@@ -27,14 +22,14 @@ class FillForm extends Component {
       teamName: "",
       categories: [],
       value: "",
-      isFieldVisible: false
+      isFieldVisible: false,
     };
   }
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
   };
 
-  onChange = event => {
+  onChange = (event) => {
     const state = this.state;
     state[event.target.name] = event.target.value;
     this._fields[event.target.id] = event.target.value;
@@ -43,46 +38,46 @@ class FillForm extends Component {
     this.setState({ listOfNominations: this._fields });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     var arr;
     event.preventDefault();
-    axios.get("/get-activated-form/" + this.state.value).then(res => {
+    axios.get("/get-activated-form/" + this.state.value).then((res) => {
       this.setState({ form: res.data });
       this.setState({ parentFormName: res.data.formName });
       this.setState({ idOfActivatedForm: res.data.id });
       arr = this.state.form.fields;
-      arr = arr.filter(o => o);
+      arr = arr.filter((o) => o);
       this.setState({ fieldsArray: arr });
       this.setState({ isFieldVisible: true });
     });
   };
 
-  logoutRoute = event => {
+  logoutRoute = (event) => {
     //  event.preventDefault();
     localStorage.removeItem("user");
     this.props.history.push("/");
   };
 
   componentWillMount() {
-    axios.get("/get-activated-categories").then(res => {
+    axios.get("/get-activated-categories").then((res) => {
       this.setState({ categories: res.data });
       this.setState({ value: this.state.categories[0] });
     });
   }
   componentDidMount() {
     window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener("popstate", function(event) {
+    window.addEventListener("popstate", function (event) {
       window.history.pushState(null, document.title, window.location.href);
     });
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     const {
       listOfNominations,
       projectType,
       idOfActivatedForm,
       parentFormName,
-      teamName
+      teamName,
     } = this.state;
     e.preventDefault();
     if (this.state.listOfNominations.length === 0) {
@@ -94,9 +89,9 @@ class FillForm extends Component {
           projectType,
           idOfActivatedForm,
           parentFormName,
-          teamName
+          teamName,
         })
-        .then(result => {
+        .then((result) => {
           localStorage.removeItem("user");
           this.props.history.push("/");
         });
@@ -105,9 +100,6 @@ class FillForm extends Component {
 
   render() {
     const { teamName } = this.state;
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     if (this.state.isFieldVisible) {
       return (
         <BrowserRouter>
@@ -120,7 +112,7 @@ class FillForm extends Component {
                   backgroundColor: "#1890d8",
                   width: "100%",
                   position: "fixed",
-                  zIndex: "1"
+                  zIndex: "1",
                 }}
               >
                 <img
@@ -128,7 +120,7 @@ class FillForm extends Component {
                   alt=""
                   style={{
                     width: "8%",
-                    height: "8%"
+                    height: "8%",
                   }}
                   class="img-fluid"
                 />
@@ -138,7 +130,7 @@ class FillForm extends Component {
                     float: "right",
                     color: "white",
                     paddingTop: "14px",
-                    paddingRight: "10px"
+                    paddingRight: "10px",
                   }}
                   onClick={this.logoutRoute.bind(this)}
                 >
@@ -171,7 +163,7 @@ class FillForm extends Component {
                       onChange={this.handleChange}
                       style={{ marginLeft: 20 }}
                     >
-                      {this.state.categories.map(c => (
+                      {this.state.categories.map((c) => (
                         <option value={c}>{c}</option>
                       ))}
                     </select>
@@ -232,7 +224,7 @@ class FillForm extends Component {
                   backgroundColor: "#1890d8",
                   width: "100%",
                   position: "fixed",
-                  zIndex: "1"
+                  zIndex: "1",
                 }}
               >
                 <img
@@ -240,7 +232,7 @@ class FillForm extends Component {
                   alt=""
                   style={{
                     width: "8%",
-                    height: "8%"
+                    height: "8%",
                   }}
                   class="img-fluid"
                 />
@@ -250,7 +242,7 @@ class FillForm extends Component {
                     float: "right",
                     color: "white",
                     paddingTop: "14px",
-                    paddingRight: "10px"
+                    paddingRight: "10px",
                   }}
                   onClick={this.logoutRoute.bind(this)}
                 >
@@ -267,7 +259,7 @@ class FillForm extends Component {
                     onChange={this.handleChange}
                     style={{ marginLeft: 20 }}
                   >
-                    {this.state.categories.map(c => (
+                    {this.state.categories.map((c) => (
                       <option value={c}>{c}</option>
                     ))}
                   </select>

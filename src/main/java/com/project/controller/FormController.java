@@ -102,9 +102,9 @@ public class FormController implements ErrorController {
 
 	// Get request method that receives login credentials and performs
 	// authentication
-	@RequestMapping(method = RequestMethod.GET, value = "/auth/{username}/{password}")
-	public int isValid(@PathVariable String username, @PathVariable String password) {
-		return loginService.isLoginSuccessful(username, password);
+	@RequestMapping(method = RequestMethod.GET, value = "/auth")
+	public int isValid() {
+		return loginService.isLoginSuccessful();
 	}
 
 	// Get request method that sends back list of various project categories
@@ -206,6 +206,12 @@ public class FormController implements ErrorController {
 	@RequestMapping(method = RequestMethod.GET, value = "/getDevconEvaluatorId")
 	public List<String> getAllDevconEvaluatorId() {
 		return loginService.getIdOfDevconEvaluatorsFromLoginRepo();
+	}
+
+	// Get request method that sends back username of the associate logged in
+	@RequestMapping(method = RequestMethod.GET, value = "/getUsername")
+	public String getUsername() {
+		return loginService.getUsername();
 	}
 
 }

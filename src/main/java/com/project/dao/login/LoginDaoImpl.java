@@ -3,12 +3,14 @@ package com.project.dao.login;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.project.CustomInterceptor;
 import com.project.model.Login;
 
 @Repository
@@ -18,10 +20,12 @@ public class LoginDaoImpl implements LoginDao {
 	MongoTemplate mongoTemplate;
 
 	@Override
-	public int isValid(String username, String password) {
+	public int isValid() {
 
 		Query query = new Query();
 		List<Login> listOfEvents;
+		// CustomInterceptor customInterceptor=new CustomInterceptor();
+		String username = getUsername();
 		query.addCriteria(Criteria.where("username").is(username));
 		listOfEvents = mongoTemplate.find(query, Login.class);
 		if (listOfEvents.size() >= 1) {
@@ -97,4 +101,10 @@ public class LoginDaoImpl implements LoginDao {
 		}
 		return finalListOfEvaluatorsIds;
 	}
+
+	public String getUsername() {
+		CustomInterceptor customInterceptor = new CustomInterceptor();
+		return customInterceptor.associateID;
+	}
+
 }

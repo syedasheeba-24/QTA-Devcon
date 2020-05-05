@@ -13,8 +13,8 @@ public class LoginService {
 	@Autowired
 	LoginDaoImpl loginRepository;
 
-	public int isLoginSuccessful(String username, String password) {
-		return loginRepository.isValid(username, password);
+	public int isLoginSuccessful() {
+		return loginRepository.isValid();
 	}
 
 	public Login registerRole(Login login) {
@@ -28,4 +28,9 @@ public class LoginService {
 	public List<String> getIdOfDevconEvaluatorsFromLoginRepo() {
 		return loginRepository.getIdOfDevconEvaluators();
 	}
+
+	public String getUsername() {
+		return loginRepository.getUsername();
+	}
+
 }

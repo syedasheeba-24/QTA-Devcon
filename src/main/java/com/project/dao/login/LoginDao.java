@@ -6,7 +6,7 @@ import com.project.model.Login;
 
 public interface LoginDao {
 
-	public int isValid(String username, String password);
+	public int isValid();
 
 	public Login assignOrUpdateRole(Login login);
 

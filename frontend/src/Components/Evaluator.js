@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
-import Login from "./Login";
+import Login2 from "./Login2";
 import { Route, Redirect, BrowserRouter } from "react-router-dom";
 
 class Show extends Component {
@@ -10,13 +10,8 @@ class Show extends Component {
   _totalWeightage = [];
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("evaluator");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
+
     this.state = {
-      loggenIn,
       listOfScore: [],
       index: "",
       arrOfScores: [],
@@ -28,25 +23,26 @@ class Show extends Component {
       finalWeightedScore: [],
       totalWeightage: "0",
       listOfPapers: [],
-      paperName: ""
+      paperName: "",
+      username: "",
     };
   }
 
   componentDidMount() {
     window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener("popstate", function(event) {
+    window.addEventListener("popstate", function (event) {
       window.history.pushState(null, document.title, window.location.href);
     });
-  }
-
-  componentWillMount() {
-    axios.get("/getPapers/" + this.props.match.params.username).then(res => {
-      this.setState({ listOfPapers: res.data });
-      this.setState({ paperName: this.state.listOfPapers[0] });
+    axios.get("/getUsername").then((res) => {
+      this.setState({ username: res.data });
+      axios.get("/getPapers/" + this.state.username).then((res) => {
+        this.setState({ listOfPapers: res.data });
+        this.setState({ paperName: this.state.listOfPapers[0] });
+      });
     });
   }
 
-  handleDropdownChange = event => {
+  handleDropdownChange = (event) => {
     let _score = [];
     let _comments = [];
     let _weightage = [];
@@ -56,12 +52,13 @@ class Show extends Component {
     this.setState({ totalWeightage: _weightage });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     let _score = [];
     let _comments = [];
     let _weightage = [];
     let paperName = this.state.paperName;
-    let evaluatorName = this.props.match.params.username;
+    //let evaluatorName = this.props.match.params.username;
+    let evaluatorName = this.state.username;
     let criteria = this.state.criteria;
     let weightage = this.state.weightage;
     let score = this.state.score;
@@ -82,18 +79,17 @@ class Show extends Component {
         score,
         comments,
         finalWeightedScore,
-        totalWeightage
+        totalWeightage,
       })
-      .then(result => {
+      .then((result) => {
         this.setState({ score: _score });
         this.setState({ comments: _comments });
         this.setState({ totalWeightage: _weightage });
       });
   };
 
-  logoutRoute = event => {
-    // event.preventDefault();
-    localStorage.removeItem("evaluator");
+  logoutRoute = (event) => {
+    event.preventDefault();
     this.props.history.push("/");
   };
 
@@ -116,9 +112,6 @@ class Show extends Component {
   };
 
   render() {
-    //if (this.state.loggenIn === false) {
-    //return <Redirect to="/" />;
-    // }
     if (this.state.listOfPapers[0] !== "") {
       return (
         <div>
@@ -129,7 +122,7 @@ class Show extends Component {
                 backgroundColor: "#1890d8",
                 width: "100%",
                 position: "fixed",
-                zIndex: "1"
+                zIndex: "1",
               }}
             >
               <img
@@ -137,7 +130,7 @@ class Show extends Component {
                 alt=""
                 style={{
                   width: "8%",
-                  height: "8%"
+                  height: "8%",
                 }}
                 class="img-fluid"
               />
@@ -147,7 +140,7 @@ class Show extends Component {
                   float: "right",
                   color: "white",
                   paddingTop: "14px",
-                  paddingRight: "10px"
+                  paddingRight: "10px",
                 }}
                 onClick={this.logoutRoute.bind(this)}
               >
@@ -175,7 +168,7 @@ class Show extends Component {
                     onChange={this.handleDropdownChange}
                     style={{ marginLeft: 20 }}
                   >
-                    {this.state.listOfPapers.map(c => (
+                    {this.state.listOfPapers.map((c) => (
                       <option>{c}</option>
                     ))}
                   </select>
@@ -210,14 +203,16 @@ class Show extends Component {
                             min="1"
                             max="10"
                             value={this.state.score[index]}
-                            onChange={event => this.scoreChange(event, index)}
+                            onChange={(event) => this.scoreChange(event, index)}
                           />
                         </td>
                         <td>
                           <textarea
                             style={{ width: "100%" }}
                             name="comments"
-                            onChange={event => this.commentChange(event, index)}
+                            onChange={(event) =>
+                              this.commentChange(event, index)
+                            }
                           />
                         </td>
                       </tr>
@@ -232,13 +227,13 @@ class Show extends Component {
     } else
       return (
         <BrowserRouter>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Login2} />
           <div>
             <h2
               style={{
                 textAlign: "center",
                 marginRight: "10px",
-                paddingTop: "10px"
+                paddingTop: "10px",
               }}
             >
               Sorry,you've no paper assigned to you!
@@ -249,7 +244,7 @@ class Show extends Component {
                 textAlign: "center",
                 marginRight: "50%",
                 marginLeft: "50%",
-                fontSize: "25px"
+                fontSize: "25px",
               }}
               onClick={this.logoutRoute.bind(this)}
             >

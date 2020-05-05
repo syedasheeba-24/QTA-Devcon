@@ -6,13 +6,7 @@ import { Redirect } from "react-router-dom";
 class Score extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
     this.state = {
-      loggenIn,
       form: {},
       listOfEvaluations: [],
       projectType: "",
@@ -22,27 +16,27 @@ class Score extends Component {
       listOfScore: [],
       avgScore: [],
       headerValue: "",
-      count: 0
+      count: 0,
     };
   }
   componentWillMount() {
     let _idOfFormActivated = "";
-    axios.get("/get-activated-categories").then(res => {
+    axios.get("/get-activated-categories").then((res) => {
       this.setState({ categories: res.data });
       axios
         .get("/get-activated-form/" + this.state.categories[0])
-        .then(result => {
+        .then((result) => {
           this.setState({ form: result.data });
           _idOfFormActivated = this.state.form.id;
           axios
             .get("/get-nomination-by-group/" + _idOfFormActivated)
-            .then(result3 => {
+            .then((result3) => {
               this.setState({ nominations: result3.data });
               axios
                 .get("/get-evaluations/" + this.state.categories[0])
-                .then(result4 => {
+                .then((result4) => {
                   this.setState({
-                    listOfEvaluations: result4.data
+                    listOfEvaluations: result4.data,
                   });
                   this.setState({ headerValue: this.state.categories[0] });
                 });
@@ -51,24 +45,23 @@ class Score extends Component {
     });
   }
 
-  route = event => {
+  route = (event) => {
     let _headerValue = event.target.text;
     let _idOfFormActivated = "";
     event.preventDefault();
-    axios.get("/get-activated-form/" + _headerValue).then(res => {
+    axios.get("/get-activated-form/" + _headerValue).then((res) => {
       this.setState({ form: res.data });
       _idOfFormActivated = this.state.form.id;
-      axios.get("/get-nomination-by-group/" + _idOfFormActivated).then(res => {
-        this.setState({ headerValue: _headerValue });
-        this.setState({ nominations: res.data });
-      });
+      axios
+        .get("/get-nomination-by-group/" + _idOfFormActivated)
+        .then((res) => {
+          this.setState({ headerValue: _headerValue });
+          this.setState({ nominations: res.data });
+        });
     });
   };
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     if (this.state.nominations.length !== 0) {
       return (
         <div>
@@ -81,17 +74,17 @@ class Score extends Component {
               position: "fixed",
               zIndex: "1",
               backgroundColor: "#f4f5f7",
-              paddingTop: "20px"
+              paddingTop: "20px",
             }}
           >
-            {this.state.categories.map(c => (
+            {this.state.categories.map((c) => (
               <a
                 href={c}
                 style={{
                   padding: "6px 8px 6px 26px",
                   textDecoration: "none",
                   fontSize: "20px",
-                  display: "block"
+                  display: "block",
                 }}
                 onClick={this.route.bind(this)}
                 tabIndex="1"
@@ -108,7 +101,7 @@ class Score extends Component {
               padding: "0px 10px",
               paddingTop: "125px",
               overflow: "auto",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <h3>List of nominations for {this.state.headerValue}</h3>
@@ -135,14 +128,14 @@ class Score extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                            {this.state.listOfEvaluations.map(cc => (
+                            {this.state.listOfEvaluations.map((cc) => (
                               <tr>
                                 <td>
                                   <input
                                     size="2"
                                     style={{
                                       paddingLeft: "10px",
-                                      borderRadius: "4px"
+                                      borderRadius: "4px",
                                     }}
                                     type="text"
                                     value={cc.listOfScore[index].score}
@@ -157,7 +150,7 @@ class Score extends Component {
                                       paddingLeft: "10px",
 
                                       borderRadius: "4px",
-                                      backgroundColor: "#f4f5f7"
+                                      backgroundColor: "#f4f5f7",
                                     }}
                                     value={cc.listOfScore[index].comment}
                                     name="comments"
@@ -169,7 +162,7 @@ class Score extends Component {
                                   <input
                                     style={{
                                       paddingLeft: "10px",
-                                      borderRadius: "4px"
+                                      borderRadius: "4px",
                                     }}
                                     type="text"
                                     value={cc.nameOfEvaluator}
@@ -201,17 +194,17 @@ class Score extends Component {
               position: "fixed",
               zIndex: "1",
               backgroundColor: "#f4f5f7",
-              paddingTop: "20px"
+              paddingTop: "20px",
             }}
           >
-            {this.state.categories.map(c => (
+            {this.state.categories.map((c) => (
               <a
                 href={c}
                 style={{
                   padding: "6px 8px 6px 26px",
                   textDecoration: "none",
                   fontSize: "20px",
-                  display: "block"
+                  display: "block",
                 }}
                 onClick={this.route.bind(this)}
                 tabIndex="1"
@@ -228,7 +221,7 @@ class Score extends Component {
               padding: "0px 10px",
               paddingTop: "125px",
               overflow: "auto",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <h3>No nominations found for {this.state.headerValue}</h3>

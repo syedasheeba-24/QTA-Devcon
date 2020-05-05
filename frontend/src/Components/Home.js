@@ -1,22 +1,13 @@
 import React, { Component } from "react";
 import EventModal from "./Modal/EventSelectionModal";
-import Evaluator from "./Evaluator";
-import Evaluator2 from "./Evaluator2";
-import { Route, Redirect, BrowserRouter } from "react-router-dom";
 
 class Home extends Component {
   _path = "Quarter Awards";
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("evaluator");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
     this.state = {
-      loggenIn,
       isShowing: true,
-      username: ""
+      username: "",
     };
   }
 
@@ -26,7 +17,7 @@ class Home extends Component {
 
   componentDidMount() {
     window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener("popstate", function(event) {
+    window.addEventListener("popstate", function (event) {
       window.history.pushState(null, document.title, window.location.href);
     });
   }
@@ -49,14 +40,11 @@ class Home extends Component {
       );
     }
   };
-  handleDropdownChange = event => {
+  handleDropdownChange = (event) => {
     this._path = event.target.value;
   };
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <div>
         {this.state.isShowing ? (
@@ -70,7 +58,7 @@ class Home extends Component {
                 <label
                   style={{
                     fontSize: "22px",
-                    fontFamily: "ariel"
+                    fontFamily: "ariel",
                   }}
                 >
                   Choose the event:
@@ -79,7 +67,7 @@ class Home extends Component {
                     style={{
                       padding: "10px",
                       margin: "5px",
-                      marginLeft: "10px"
+                      marginLeft: "10px",
                     }}
                   >
                     <option>Quarter Awards</option>

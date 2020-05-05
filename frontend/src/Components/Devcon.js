@@ -8,20 +8,10 @@ import "./index.css";
 class Devcon extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
-    this.state = {
-      loggenIn
-    };
+    this.state = {};
   }
 
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <BrowserRouter>
         <div>
@@ -31,7 +21,7 @@ class Devcon extends Component {
               position: "fixed",
               width: "100%",
               zIndex: "2",
-              paddingTop: "60px"
+              paddingTop: "60px",
             }}
           >
             <li>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, NavLink, Redirect, BrowserRouter } from "react-router-dom";
-import Login from "./Login";
+import Login2 from "./Login2";
 import Admin from "./Admin";
 import Admin2 from "./Admin2";
 import Devcon from "./Devcon";
@@ -9,22 +9,14 @@ import "./index.css";
 class Main extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem("token");
-    let loggenIn = true;
-    if (token === null) {
-      loggenIn = false;
-    }
-    this.state = {
-      loggenIn
-    };
+
+    this.state = {};
   }
-  logoutRoute = event => {
-    localStorage.removeItem("token");
+  logoutRoute = (event) => {
+    event.preventDefault();
+    this.props.history.push("/");
   };
   render() {
-    if (this.state.loggenIn === false) {
-      return <Redirect to="/" />;
-    }
     return (
       <BrowserRouter>
         <div>
@@ -43,7 +35,7 @@ class Main extends Component {
                 href="/"
                 style={{
                   float: "right",
-                  color: "white"
+                  color: "white",
                 }}
                 onClick={this.logoutRoute.bind(this)}
               >
@@ -54,7 +46,7 @@ class Main extends Component {
           <div className="content">
             <Route path="/options" component={Admin2} />
             <Route path="/devcon" component={Devcon} />
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" component={Login2} />
           </div>
         </div>
       </BrowserRouter>
